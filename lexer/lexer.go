@@ -27,13 +27,21 @@ func (l *Lexer) NextToken() (tok token.Token) {
 	l.skipWhitespace()
 	switch l.ch {
 	case '=':
-		tok = newToken(token.ASSIGN, l.ch)
+		if l.peekChar() == '=' {
+			tok = token.Token{Type: token.EQ, Literal: l.makeTwoCharToken()}
+		} else {
+			tok = newToken(token.ASSIGN, l.ch)
+		}
 	case '+':
 		tok = newToken(token.PLUS, l.ch)
 	case '-':
 		tok = newToken(token.MINUS, l.ch)
 	case '!':
-		tok = newToken(token.BANG, l.ch)
+		if l.peekChar() == '=' {
+			tok = token.Token{Type: token.NOT_EQ, Literal: l.makeTwoCharToken()}
+		} else {
+			tok = newToken(token.BANG, l.ch)
+		}
 	case '/':
 		tok = newToken(token.SLASH, l.ch)
 	case '*':
@@ -100,4 +108,15 @@ func isDigit(ch byte) bool {
 }
 func newToken(tokenType token.TokenType, ch byte) token.Token {
 	return token.Token{Type: tokenType, Literal: string(ch)}
+}
+func (l *Lexer) peekChar() byte {
+	if l.readPosition >= len(l.input) {
+		return 0
+	}
+	return l.input[l.readPosition]
+}
+func (l *Lexer) makeTwoCharToken() string {
+	ch := l.ch
+	l.readChar()
+	return string(ch) + string(l.ch)
 }

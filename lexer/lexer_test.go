@@ -19,7 +19,8 @@ let ten = 10;
        return true;
    } else {
        return false;
-}`
+}
+!= ==`
 	tests := []struct {
 		expectedType    token.TokenType
 		expectedLiteral string
@@ -89,6 +90,8 @@ let ten = 10;
 		{token.FALSE, "false"},
 		{token.SEMICOLON, ";"},
 		{token.RBRACE, "}"},
+		{token.NOT_EQ, "!="},
+		{token.EQ, "=="},
 		{token.EOF, ""},
 	}
 	l := New(input)
