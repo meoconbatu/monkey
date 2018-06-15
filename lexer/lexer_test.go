@@ -20,7 +20,10 @@ let ten = 10;
    } else {
        return false;
 }
-!= ==`
+!= ==
+"foobar"
+"foo bar"
+`
 	tests := []struct {
 		expectedType    token.TokenType
 		expectedLiteral string
@@ -92,6 +95,8 @@ let ten = 10;
 		{token.RBRACE, "}"},
 		{token.NOT_EQ, "!="},
 		{token.EQ, "=="},
+		{token.STRING, "foobar"},
+		{token.STRING, "foo bar"},
 		{token.EOF, ""},
 	}
 	l := New(input)
