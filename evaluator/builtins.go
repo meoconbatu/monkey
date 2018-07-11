@@ -1,6 +1,6 @@
 package evaluator
 
-import "monkey/object"
+import "github.com/meoconbatu/monkey/object"
 
 var builtins = map[string]*object.Bultin{
 	"len": &object.Bultin{

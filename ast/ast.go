@@ -1,6 +1,6 @@
 package ast
 
-import "monkey/token"
+import "github.com/meoconbatu/monkey/token"
 import "bytes"
 import "strings"
 
